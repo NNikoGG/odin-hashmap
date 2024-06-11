@@ -18,6 +18,7 @@ class HashMap {
     return hashCode;
   }
 
+  // Add hash map
   set(key, value) {
     const index = this.hash(key);
 
@@ -46,6 +47,7 @@ class HashMap {
     console.log(`Size: ${this.size}`);
   }
 
+  // Resize when load factor is exceeded
   resize() {
     // Temporarily storing the buckets
     const oldBuckets = this.buckets;
@@ -62,6 +64,33 @@ class HashMap {
     }
     console.log("Resize done!");
   }
+
+  // Return the value of entered key
+  get(key) {
+    // Traversing over each bucket and matching its key
+    for (let index in this.buckets) {
+      for (let i in this.buckets[index]) {
+        if (this.buckets[index][i][0] === key) {
+          console.log(`Key: ${key} , Value: ${this.buckets[index][i][1]}`);
+          return;
+        }
+      }
+    }
+    console.log(null); // Null if key not found
+  }
+
+  // Return true or false based on presence of key
+  has(key) {
+    for (let index in this.buckets) {
+      for (let i in this.buckets[index]) {
+        if (this.buckets[index][i][0] === key) {
+          console.log(true);
+          return;
+        }
+      }
+    }
+    console.log(false);
+  }
 }
 
 const hm1 = new HashMap();
@@ -69,3 +98,5 @@ const hm1 = new HashMap();
 hm1.set("Niko", 10);
 hm1.set("Kiko", 20);
 hm1.set("b", 30);
+hm1.get("Niko");
+hm1.has("Kiko");
