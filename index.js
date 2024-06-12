@@ -92,18 +92,85 @@ class HashMap {
 
   // Remove entry given a key
   remove(key) {
-    for (let index in this.buckets) {
+    for (let index = 0; index < this.buckets.length; index++) {
       if (this.buckets[index]) {
         for (let i = 0; i < this.buckets[index].length; i++) {
           if (this.buckets[index][i][0] === key) {
             this.buckets[index].splice(i, 1);
             console.log("true");
+            this.size--;
             return;
           }
         }
       }
     }
     console.log("false");
+  }
+
+  // Count number of stored keys
+  length() {
+    let count = 0;
+    for (let index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index]) {
+        for (let i = 0; i < this.buckets[index].length; i++) {
+          if (this.buckets[index][i]) {
+            count++;
+          }
+        }
+      }
+    }
+    console.log(count);
+  }
+
+  // Remove all entries
+  clear() {
+    this.buckets = Array(this.bucketSize).fill(null);
+    this.size = 0;
+  }
+
+  // Return array containing all keys
+  keys() {
+    let keys = [];
+    for (let index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index]) {
+        for (let i = 0; i < this.buckets[index].length; i++) {
+          if (this.buckets[index][i]) {
+            keys.push(this.buckets[index][i][0]);
+          }
+        }
+      }
+    }
+    console.log(keys);
+  }
+
+  // Return array containing all values
+  values() {
+    let values = [];
+    for (let index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index]) {
+        for (let i = 0; i < this.buckets[index].length; i++) {
+          if (this.buckets[index][i]) {
+            values.push(this.buckets[index][i][1]);
+          }
+        }
+      }
+    }
+    console.log(values);
+  }
+
+  // Return array containing all entries
+  entries() {
+    let pairs = [];
+    for (let index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index]) {
+        for (let i = 0; i < this.buckets[index].length; i++) {
+          if (this.buckets[index][i]) {
+            pairs.push(this.buckets[index][i]);
+          }
+        }
+      }
+    }
+    console.log(pairs);
   }
 }
 
@@ -118,3 +185,13 @@ hm1.get("Niko");
 hm1.has("Kiko");
 hm1.remove("b");
 console.log(hm1.buckets);
+hm1.length();
+hm1.clear();
+console.log(hm1.buckets);
+hm1.set("Niko", 10);
+hm1.set("Kiko", 20);
+hm1.set("b", 30);
+hm1.set("Riko", 40);
+hm1.keys();
+hm1.values();
+hm1.entries();
