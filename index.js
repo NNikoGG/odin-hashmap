@@ -14,7 +14,6 @@ class HashMap {
     for (let i = 0; i < key.length; i++) {
       hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % this.bucketSize;
     }
-    console.log(`Hashcode: ${hashCode}`);
     return hashCode;
   }
 
@@ -43,8 +42,6 @@ class HashMap {
     if (this.size / this.bucketSize >= this.loadFactor) {
       this.resize();
     }
-    console.log(this.buckets);
-    console.log(`Size: ${this.size}`);
   }
 
   // Resize when load factor is exceeded
@@ -67,29 +64,46 @@ class HashMap {
 
   // Return the value of entered key
   get(key) {
-    // Traversing over each bucket and matching its key
-    for (let index in this.buckets) {
-      for (let i in this.buckets[index]) {
-        if (this.buckets[index][i][0] === key) {
-          console.log(`Key: ${key} , Value: ${this.buckets[index][i][1]}`);
-          return;
+    for (let index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index]) {
+        for (let i = 0; i < this.buckets[index].length; i++) {
+          if (this.buckets[index][i][0] === key) {
+            console.log(this.buckets[index][i][1]);
+          }
         }
       }
     }
-    console.log(null); // Null if key not found
+    console.log(null);
   }
 
   // Return true or false based on presence of key
   has(key) {
-    for (let index in this.buckets) {
-      for (let i in this.buckets[index]) {
-        if (this.buckets[index][i][0] === key) {
-          console.log(true);
-          return;
+    for (let index = 0; index < this.buckets.length; index++) {
+      if (this.buckets[index]) {
+        for (let i = 0; i < this.buckets[index].length; i++) {
+          if (this.buckets[index][i][0] === key) {
+            console.log(true);
+          }
         }
       }
     }
     console.log(false);
+  }
+
+  // Remove entry given a key
+  remove(key) {
+    for (let index in this.buckets) {
+      if (this.buckets[index]) {
+        for (let i = 0; i < this.buckets[index].length; i++) {
+          if (this.buckets[index][i][0] === key) {
+            this.buckets[index].splice(i, 1);
+            console.log("true");
+            return;
+          }
+        }
+      }
+    }
+    console.log("false");
   }
 }
 
@@ -98,5 +112,9 @@ const hm1 = new HashMap();
 hm1.set("Niko", 10);
 hm1.set("Kiko", 20);
 hm1.set("b", 30);
+hm1.set("Riko", 40);
+console.log(hm1.buckets);
 hm1.get("Niko");
 hm1.has("Kiko");
+hm1.remove("b");
+console.log(hm1.buckets);
