@@ -9,7 +9,7 @@ This repository contains a custom implementation of a hash map in JavaScript. Th
 - CRUD operations: Includes methods to add, retrieve, check, and remove entries.
 - Utility functions: Provides methods to clear the hash map, and retrieve all keys, values, and entries.
 
-## sage
+## Usage
 
 ### Initialization
 
